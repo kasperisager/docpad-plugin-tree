@@ -56,7 +56,7 @@ A constructed tree will look something like this:
 
 The tree can then be used to create a nested navigation menu:
 
-```eco
+```html
 <% menu = (items) => %>
   <ul class="nav nav-stacked">
     <% for item in items: %>
