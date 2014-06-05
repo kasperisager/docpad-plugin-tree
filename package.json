@@ -1,0 +1,44 @@
+{
+  "name": "docpad-plugin-tree",
+  "version": "2.0.0",
+  "description": "DocPad plugin that when given a collection will construct a hierarchical tree of documents. Perfect for navigation menus!",
+  "main": "src/tree.plugin.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kasperisager/docpad-plugin-tree.git"
+  },
+  "keywords": [
+    "docpad",
+    "docpad-plugin",
+    "navigation",
+    "tree"
+  ],
+  "author": {
+    "name": "Kasper Isager",
+    "email": "kasperisager@gmail.com",
+    "url": "https://github.com/kasperisager"
+  },
+  "contributors": [
+    {
+      "name": "Becky Van Bussel",
+      "email": "beckyvanbussel@gmail.com",
+      "url": "https://github.com/beckyvb"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kasperisager/docpad-plugin-tree/issues"
+  },
+  "homepage": "https://github.com/kasperisager/docpad-plugin-tree",
+  "dependencies": {
+    "underscore": "^1.6.0",
+    "underscore.string": "^2.3.3"
+  },
+  "peerDependencies": {
+    "docpad": "6"
+  },
+  "engines": {
+    "node": ">=0.10"
+  }
+}
