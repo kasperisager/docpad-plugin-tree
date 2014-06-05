@@ -54,7 +54,7 @@ A constructed tree will look something like this:
 ]
 ```
 
-The tree can then be used to create a nested navigation menu:
+The tree can then be used to create, say, a nested navigation menu:
 
 ```html
 <% menu = (items) => %>
