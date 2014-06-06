@@ -3,7 +3,7 @@ _.str = require('underscore.string');
 
 _.mixin(_.str.exports());
 
-function Tree (collection) {
+function Tree (collection, includeRoot) {
   'use strict';
 
   // Unsorted tree of documents
@@ -36,6 +36,10 @@ function Tree (collection) {
   collection.forEach(function (doc) {
     // Split the document URL into an array
     var parts = _.compact(doc.url.replace(urlRegex, '').split('/'));
+
+    if (includeRoot) {
+      parts.unshift('/');
+    }
 
     if (!parts.length) {
       return;
@@ -102,7 +106,7 @@ module.exports = function (BasePlugin) {
       var docpad       = this.docpad
         , templateData = options.templateData;
 
-      templateData.tree = function (collection, context) {
+      templateData.tree = function (collection, context, includeRoot) {
         if (collection === null) {
           collection = 'documents';
         }
@@ -111,7 +115,7 @@ module.exports = function (BasePlugin) {
         collection = docpad.getCollection(collection);
 
         // Construct the menu tree
-        var tree = new Tree(collection.toJSON());
+        var tree = new Tree(collection.toJSON(), includeRoot);
 
         return tree.toJSON(context);
       };
