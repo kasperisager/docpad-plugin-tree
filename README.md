@@ -1,6 +1,6 @@
 # Tree plugin for [DocPad](http://docpad.org/)
 
-[![Latest Release](http://img.shields.io/npm/v/docpad-plugin-tree.svg?style=flat)](https://www.npmjs.org/package/docpad-plugin-tree) [![Code Quality](http://img.shields.io/codeclimate/github/kasperisager/docpad-plugin-tree.svg?style=flat)](https://codeclimate.com/github/kasperisager/docpad-plugin-tree) [![Dependency Status](http://img.shields.io/gemnasium/kasperisager/docpad-plugin-tree.svg?style=flat)](https://gemnasium.com/kasperisager/docpad-plugin-tree) [![Dowloads](http://img.shields.io/npm/dm/docpad-plugin-tree.svg?style=flat)](https://www.npmjs.org/package/docpad-plugin-tree) 
+[![Latest Release](http://img.shields.io/npm/v/docpad-plugin-tree.svg?style=flat)](https://www.npmjs.org/package/docpad-plugin-tree) [![Code Quality](http://img.shields.io/codeclimate/github/kasperisager/docpad-plugin-tree.svg?style=flat)](https://codeclimate.com/github/kasperisager/docpad-plugin-tree) [![Dependency Status](http://img.shields.io/gemnasium/kasperisager/docpad-plugin-tree.svg?style=flat)](https://gemnasium.com/kasperisager/docpad-plugin-tree) [![Dowloads](http://img.shields.io/npm/dm/docpad-plugin-tree.svg?style=flat)](https://www.npmjs.org/package/docpad-plugin-tree)
 
 [DocPad](http://docpad.org/) plugin that when given a collection will construct a hierarchical tree of documents. Perfect for navigation menus!
 
@@ -12,12 +12,13 @@ $ docpad install tree
 
 ## Usage
 
-The plugin exposes a template helper, `tree(collection, context)`, that you can use for constructing a tree of documents from any given collection:
+The plugin exposes a template helper, `tree(collection, context, includeRoot)`, that you can use for constructing a tree of documents from any given collection:
 
-`tree(...)`  | Type     | Description
----          | ---      | ---
-`collection` | `string` | The name of the collection used for constructing the tree. Default: `documents`
-`context`    | `object` | The context in which this tree is to be constructed. Will "highlight" the current document path if set. You'll typically want to set it to `@document`. _Optional_
+`tree(...)`   | Type      | Description
+---           | ---       | ---
+`collection`  | `string`  | The name of the collection used for constructing the tree. Default: `documents`
+`context`     | `object`  | The context in which this tree is to be constructed. Will "highlight" the current document path if set. You'll typically want to set it to `@document`. _Optional_
+`includeRoot` | `boolean` | Whether or not to include the root of the collection in the constructed tree. Default: `false`
 
 For each document in the collection, you can set the following meta information:
 
@@ -33,25 +34,40 @@ A constructed tree will look something like this:
 ```json
 [
   {
-    "title": "Some Page",
+    "title": "Some page",
     "url": "/some-page",
     "order": 0,
     "hidden": false,
+    "active": false,
+    "current": false,
     "children": [
       {
         "title": "A child page",
         "url": "/some-page/a-child-page",
         "order": 0,
-        "hidden": false
+        "hidden": false,
+        "active": false,
+        "current": false
       }
     ]
   },
   {
-    "title": "Current page",
-    "url": "/current-page",
+    "title": "Parent of current page",
+    "url": "/parent-of-current-page",
     "order": 0,
     "hidden": false,
-    "active": true
+    "active": true,
+    "current": false,
+    "children": [
+      {
+        "title": "Current page",
+        "url": "/parrent-of-current-page/current-page",
+        "order": 0,
+        "hidden": false,
+        "active": true,
+        "current": true
+      }
+    ]
   }
 ]
 ```
@@ -71,6 +87,27 @@ The tree can then be used to create, say, a nested navigation menu:
 <% end %>
 
 <%= menu @tree('html', @document) %>
+```
+
+You could also use it to create breadcrumbs (notice inclusion of the root):
+
+```html
+<% trail = (items) => %>
+  <% for item in items: %>
+    <% if item.active: %>
+      <% if item.current: %>
+        <li class="active"><%= item.title %></li>
+      <% else: %>
+        <li><a href="<%= item.url %>"><%= item.title %></a></li>
+      <% end %>
+      <%- trail item.children if item.children %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<ol class="breadcrumb">
+  <%= trail @tree('html', @document, true)  %>
+</ol>
 ```
 
 ---
