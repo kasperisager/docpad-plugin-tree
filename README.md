@@ -61,7 +61,7 @@ A constructed tree will look something like this:
     "children": [
       {
         "title": "Current page",
-        "url": "/parrent-of-current-page/current-page",
+        "url": "/parent-of-current-page/current-page",
         "order": 0,
         "hidden": false,
         "active": true,
