@@ -1,5 +1,7 @@
 # Tree plugin for [DocPad](http://docpad.org/)
 
+[![Latest Release](http://img.shields.io/npm/v/docpad-plugin-tree.svg?style=flat)](https://www.npmjs.org/package/docpad-plugin-tree) [![Code Quality](http://img.shields.io/codeclimate/github/kasperisager/docpad-plugin-tree.svg?style=flat)](https://codeclimate.com/github/kasperisager/docpad-plugin-tree) [![Dependency Status](http://img.shields.io/gemnasium/kasperisager/docpad-plugin-tree.svg?style=flat)](https://gemnasium.com/kasperisager/docpad-plugin-tree) [![Dowloads](http://img.shields.io/npm/dm/docpad-plugin-tree.svg?style=flat)](https://www.npmjs.org/package/docpad-plugin-tree) 
+
 [DocPad](http://docpad.org/) plugin that when given a collection will construct a hierarchical tree of documents. Perfect for navigation menus!
 
 ## Install
