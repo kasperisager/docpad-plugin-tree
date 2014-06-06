@@ -61,10 +61,14 @@ Tree.prototype.toJSON = function (context) {
 
     // Mark documents in the current navigation path as active
     if (context) {
-      current.active = _.startsWith(
-        context.url.replace(urlRegex, '')
-      , current.url.replace(urlRegex, '')
-      );
+      var contextUrl = context.url.replace(urlRegex, '')
+        , currentUrl = current.url.replace(urlRegex, '');
+
+      // Is this page part of the currently active path?
+      current.active = _.startsWith(contextUrl, currentUrl);
+
+      // Is this page the currently selected page?
+      current.current = contextUrl === currentUrl;
     }
 
     // Grab all child documents of the current document and sort them
