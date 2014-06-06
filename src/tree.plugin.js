@@ -22,7 +22,7 @@ function Tree (collection) {
 
     // If this is the current document context, add the document meta
     if (parts.length - 1 === index) {
-      current.title  = doc.title || doc.menu;
+      current.title  = doc.menu || doc.title;
       current.url    = doc.url;
       current.order  = doc.order || 0;
       current.hidden = doc.hidden || false;
