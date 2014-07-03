@@ -21,7 +21,7 @@ function Tree (collection, includeRoot) {
     var current = parent[part] = parent[part] || { children: {} };
 
     // If this is the current document context, add the document meta
-    if (parts.length - 1 === index) {
+    if ((parts.length - 1) === index) {
       current.title  = doc.menu || doc.title;
       current.url    = doc.url;
       current.order  = doc.order || 0;
@@ -52,8 +52,9 @@ function Tree (collection, includeRoot) {
 Tree.prototype.toJSON = function (context) {
   'use strict';
 
-  var output   = []
-    , urlRegex = this.urlRegex;
+  var output    = []
+    , documents = this.documents
+    , urlRegex  = this.urlRegex;
 
   var addDocument = function (parent, current) {
     if (current.hidden) {
@@ -87,14 +88,14 @@ Tree.prototype.toJSON = function (context) {
     // Re-initialize document children as array
     current.children = [];
 
-    for (var section in children) {
-      addDocument(current.children, children[section]);
-    }
+    Object.keys(children).forEach(function (child) {
+      addDocument(current.children, children[child]);
+    });
   };
 
-  for (var section in this.documents) {
-    addDocument(output, this.documents[section]);
-  }
+  Object.keys(documents).forEach(function (child) {
+    addDocument(output, documents[child]);
+  });
 
   return output;
 };
