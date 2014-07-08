@@ -77,9 +77,14 @@ Tree.prototype.toJSON = function (context) {
     }
 
     // Grab all child documents of the current document and sort them
-    var children = _.sortBy(current.children, function (doc) {
-      return parseFloat(doc.order);
-    });
+    var children = _(current.children).chain()
+      .sortBy(function (doc) {
+        return doc.title;
+      })
+      .sortBy(function (doc) {
+        return parseFloat(doc.order);
+      })
+      .value();
 
     if (_.isEmpty(children)) {
       return delete current.children;
