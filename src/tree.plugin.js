@@ -1,11 +1,11 @@
-_ = require('underscore');
+'use strict';
+
+var _ = require('underscore');
 _.str = require('underscore.string');
 
 _.mixin(_.str.exports());
 
 function Tree (collection, includeRoot) {
-  'use strict';
-
   // Unsorted tree of documents
   var documents = this.documents = {};
 
@@ -41,17 +41,13 @@ function Tree (collection, includeRoot) {
       parts.unshift('/');
     }
 
-    if (!parts.length) {
-      return;
+    if (parts.length) {
+      addChild(doc, parts, documents, 0);
     }
-
-    addChild(doc, parts, documents, 0);
   });
 }
 
 Tree.prototype.toJSON = function (context) {
-  'use strict';
-
   var output    = []
     , documents = this.documents
     , urlRegex  = this.urlRegex;
