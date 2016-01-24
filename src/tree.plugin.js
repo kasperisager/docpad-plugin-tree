@@ -89,6 +89,11 @@ Tree.prototype.toJSON = function (context) {
     });
   };
 
+  // Sort all 'first-level' documents
+  documents = _.sortBy(documents, function (doc) {
+    return parseFloat(doc.order);
+  });
+
   Object.keys(documents).forEach(function (child) {
     addDocument(output, documents[child]);
   });
