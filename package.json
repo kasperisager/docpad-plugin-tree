@@ -1,6 +1,6 @@
 {
   "name": "docpad-plugin-tree",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "DocPad plugin that when given a collection will construct a hierarchical tree of documents. Perfect for navigation menus!",
   "main": "src/tree.plugin.js",
   "scripts": {},
